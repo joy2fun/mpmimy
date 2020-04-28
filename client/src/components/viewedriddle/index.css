@@ -1,0 +1,16 @@
+.item {
+  border-radius: 10rpx;
+  padding: 20px;
+  border:1px solid #d6e4ef;
+  margin-top: 20rpx;
+}
+
+.q {
+  white-space: wrap;
+}
+
+.a {
+  text-align: right;
+  padding: 10rpx 0 0;
+  color: #999;
+}
