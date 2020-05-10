@@ -23,39 +23,22 @@ export default class Riddle extends Component {
 
   componentDidHide() { }
 
-  handleFocus(value) {
-    this.focusing = true
-    return value
-  }
-
   verify(value) {
-    console.log(value, this.props.answerContent)
     const v = value.replace(/^\s+/, '').replace(/\s+$/, '')
     if (v.length === 0) {
       return false
     }
     return this.props.answerContent.split(',').findIndex(item => {
       return item.indexOf(v) != -1
+        && (v.length > item.length * 0.7)
     }) != -1
   }
 
-  handleBlur(value) {
-    this.focusing = false
-    return value
-  }
-
   handleChange(value) {
-    console.log('c')
     this.setState({value})
     const ok = this.verify(value)
 
-    if (ok || !this.focusing) {
-      this.delayCheck(value, ok)
-    }
-
-    if (ok) {
-      return ''
-    }
+    this.delayCheck(value, ok)
   }
 
   delayCheck(value, ok) {
@@ -86,7 +69,7 @@ export default class Riddle extends Component {
           duration: 2500,
         })
       }
-    }, 500)
+    }, 800)
   }
 
   handlePeek() {
@@ -117,7 +100,6 @@ export default class Riddle extends Component {
 
 
   render() {
-    console.log(this.state);
     return (
       <View className='index'>
         <AtCard
@@ -149,8 +131,6 @@ export default class Riddle extends Component {
                   clear={true}
                   type='text'
                   placeholder={this.state.hint}
-                  onFocus={this.handleFocus.bind(this)}
-                  onBlur={this.handleBlur.bind(this)}
                   onChange={this.handleChange.bind(this)}
                   border={false}
                   value={this.state.value}

@@ -33,6 +33,7 @@ export default class Index extends Component {
   onPullDownRefresh() {
     Taro.showToast({
       icon: 'loading',
+      duration: 4000
     })
     Taro.cloud
       .callFunction({
@@ -41,6 +42,7 @@ export default class Index extends Component {
       })
       .then(res => {
         const data = res.result.data
+        console.log(data)
         Taro.hideToast()
         Taro.stopPullDownRefresh()
         this.refs.riddle.reset()
@@ -54,6 +56,7 @@ export default class Index extends Component {
       })
       .catch(e => {
         console.log(e)
+        Taro.stopPullDownRefresh()
         Taro.showToast({
           icon: 'none',
           title: '请求超时，请重试',
